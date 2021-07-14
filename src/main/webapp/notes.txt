@@ -1,0 +1,138 @@
+Session Tracking/Management ******************
+---------------------------
+-> When a user logs into the website, not matter on which page he visits after logging, 
+credentials will be with the sever, so this is managed by creating session.
+-> Session Management is a mechanism used by the web container to store session information for 
+particular user.
+-> There 4 techniques used by servlet application for session.
+	1. Cookies
+	2. Hidden Form Fields
+	3. URL Rewriting
+	4. HttpSession
+
+1. HttpSession
+-----------
+-> HttpSession object is used to store entire session with a specific client.
+-> We can store, retrieve and delete attribute from HttpSession object.
+-> Any servlet can have access to HttpSession object through getSession() method.
+-> getSession() method is a method of HttpServletRequest interface. It returns a session, if
+the session is already exist it return session object otherwise it creates new session.
+
+1. Create a new session:
+
+	HttpSession sess = request.getSession();
+	
+	HttpSession sess = request.getSession(true); // always creates a new session
+
+2. Getting a pre-existing session:
+	HttpSession sess = request.getSession(false);
+
+3. Destroying a session:
+	sess.invalidate();
+	
+
+2. Hidden Form Fields:
+-> A hidden(invisible) textfield is used for maintaining the state of users.
+-> We can store the information in the hidden field and get it from another servlet.
+Syntax:
+	<input type="hidden" name="" value="abc"/>
+
+Advantage:
+	It will always work whether cookies are disabled or not.
+
+Disadvantage:
+	1. It is maintained at server side.
+	2. Extra form submission is required on each pages.
+	3. Only textual information can be used.
+
+
+3. URL Rewriting
+-> Append a attribute to the URL of next servlet.
+Syntax:
+
+	URL?name1=value1&name2=value2
+	
+Advantage:
+	1. It will always work whether cookies are disabled or not.
+	2. Extra form submission is not required on each pages.	
+	
+Disadvantage:
+	1. It will work only with links.
+	2. Only textual information can be used.
+
+4. Cookies
+-> A cookie is a small piece of information that is stored between the multiple clients request.
+-> A Cookie has a name, value, comment, path, domain qualifiers, max age, version number.
+
+Types of Cookies:
+	1. Non-Persistent Cookie
+		-> It is valid for single session only.
+		-> It is removed each time when user closes the browser.
+		
+	2. Persistent Cookie
+		-> It is valid for multiple session.
+		-> It is not removed each time when user closes the browser.
+		-> It is removed only if user logout.
+
+Advantage:
+	1. Cookies are maintained at client side.
+	2. Simplest technique of maintaining client states.
+
+DisadvantageL
+	1. It will not work if cookie is disabled from the browser.
+	2. Only textual information can be used.
+
+How to send Cookies to the Client [client <----- server]
+---------------------------------
+1. Create a Cookie object.
+	Cookie c = new Cookie("attribute","value");
+	
+2. Set Maximum Age of Cookie.
+	
+	c.setMaxAge(60); // setMaxAge() method can set the max age for the particular cookie in seconds.
+
+3. Place the cookie in HTTP response header.
+	
+	response.addCookie(c);
+
+How to read Cookies [client+cookie -----> server]
+--------------------
+Cookie c[] = request.getCookies();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
